@@ -20,7 +20,7 @@ Projeto elaborado para solucionar o desafio de processo seletivo.
 - User Name: teste
 - Password: teste
 
-- Os dados fornecidos serão inseridos na tabela movie [SELECT * FROM MOVIE]
+- Os dados fornecidos serão inseridos na tabela movie `SELECT * FROM MOVIE`
 
 ## Práticas adotadas
 
@@ -31,7 +31,7 @@ Projeto elaborado para solucionar o desafio de processo seletivo.
 
 ## Como Executar
 
-- Clonar repositório git: []()
+- Clonar repositório git: [git@github.com:joaopaulobuzatto/texoit-desafio-backend.git](https://github.com/joaopaulobuzatto/texoit-desafio-backend.git)
 ```
 git clone 
 ```
