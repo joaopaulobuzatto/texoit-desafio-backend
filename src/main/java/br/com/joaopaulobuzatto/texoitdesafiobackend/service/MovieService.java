@@ -47,24 +47,8 @@ public class MovieService {
     }
 
     public TestResult getProducersByBiggestRangeAndSmallestRangeFromYearWinnerConsecutive() {
-        List<Movie> moveiWinners = movieRepository.findMoviesByWinnerOrderByReleaseYearAsc("yes");
-
-        HashMap<String, List<Integer>> winningProducers = new HashMap<>();
-
-        for (Movie movie : moveiWinners) {
-            String producers = movie.getProducers().replace(", and", ",").replace(" and", ",");
-
-            for (String producer : producers.split(", ")) {
-                if (winningProducers.containsKey(producer)) {
-                    List<Integer> winningYears = winningProducers.get(producer);
-                    winningYears.add(movie.getReleaseYear());
-                } else {
-                    List<Integer> winningYears = new ArrayList<>();
-                    winningYears.add(movie.getReleaseYear());
-                    winningProducers.put(producer, winningYears);
-                }
-            }
-        }
+        List<Movie> movies = findMoviesByWinnerOrderByReleaseYearAsc();
+        HashMap<String, List<Integer>> producers = getHashMapProducersAndYears(movies);
 
         List<ProducerResponse> min = new ArrayList<>();
         List<ProducerResponse> max = new ArrayList<>();
@@ -72,13 +56,13 @@ public class MovieService {
         Integer minWinner = Integer.MAX_VALUE;
         Integer maxWinner = Integer.MIN_VALUE;
 
-        for (Map.Entry<String, List<Integer>> entry : winningProducers.entrySet()) {
+        for (Map.Entry<String, List<Integer>> entry : producers.entrySet()) {
             if (entry.getValue().size() == 1) {
                 continue;
             }
 
             String producer = entry.getKey();
-            List<Integer> winningYears = entry.getValue();
+            List<Integer> years = entry.getValue();
 
             Integer minYear = Integer.MAX_VALUE;
             Integer maxYear = Integer.MIN_VALUE;
@@ -86,7 +70,7 @@ public class MovieService {
             Integer previousYear = 0;
             Integer difference;
 
-            for (Integer year : winningYears) {
+            for (Integer year : years) {
                 if (year < minYear) {
                     minYear = year;
                 }
@@ -123,6 +107,30 @@ public class MovieService {
         }
 
         return new TestResult(min, max);
+    }
+
+    private HashMap<String, List<Integer>> getHashMapProducersAndYears(List<Movie> movies) {
+        HashMap<String, List<Integer>> producers = new HashMap<>();
+
+        for (Movie movie : movies) {
+            String producersByMovie = movie.getProducers().replace(", and", ",").replace(" and", ",");
+
+            for (String producer : producersByMovie.split(", ")) {
+                if (producers.containsKey(producer)) {
+                    List<Integer> years = producers.get(producer);
+                    years.add(movie.getReleaseYear());
+                } else {
+                    List<Integer> years = new ArrayList<>();
+                    years.add(movie.getReleaseYear());
+                    producers.put(producer, years);
+                }
+            }
+        }
+        return producers;
+    }
+
+    private List<Movie> findMoviesByWinnerOrderByReleaseYearAsc() {
+        return movieRepository.findMoviesByWinnerOrderByReleaseYearAsc("yes");
     }
 
 }
