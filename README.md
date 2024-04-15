@@ -37,7 +37,7 @@ git clone
 ```
 - Executar build da aplicação Spring Boot
 ```
-./mvnw clean package 
+mvn clean package 
 ```
 - Executar a aplicação Spring Boot
 ```
