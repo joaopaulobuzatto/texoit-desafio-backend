@@ -80,3 +80,7 @@ Transfer-Encoding: chunked
 ## Documentação API
 
 - Acessar documentação em `http://localhost:8080/swagger-ui/index.html`
+
+## Testes
+
+![alt text](image.png)
