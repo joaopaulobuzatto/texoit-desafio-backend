@@ -31,7 +31,7 @@ public class BatchConfig {
     public Step step(ItemReader<Movie> reader, ItemWriter<Movie> writer, JobRepository jobRepository,
             PlatformTransactionManager transactionManager) {
         return new StepBuilder("stepLoadMovies", jobRepository)
-                .<Movie, Movie>chunk(10, transactionManager)
+                .<Movie, Movie>chunk(50, transactionManager)
                 .reader(reader)
                 .writer(writer)
                 .build();
