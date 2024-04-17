@@ -1,5 +1,6 @@
 package br.com.joaopaulobuzatto.texoitdesafiobackend;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -29,6 +30,9 @@ public class MovieIT {
         assertNotNull(response.max());
         assertNotEquals(0, response.min().size());
         assertNotEquals(0, response.max().size());
+
+        assertEquals(2, response.min().size());
+        assertEquals(2, response.max().size());
 
         Assertions.assertThat(response.min().get(0).interval()).isPositive();
         Assertions.assertThat(response.max().get(0).interval()).isPositive();
