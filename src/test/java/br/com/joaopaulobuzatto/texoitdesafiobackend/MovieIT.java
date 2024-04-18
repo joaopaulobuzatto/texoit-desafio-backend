@@ -31,12 +31,23 @@ public class MovieIT {
         assertNotEquals(0, response.min().size());
         assertNotEquals(0, response.max().size());
 
-        assertEquals(2, response.min().size());
-        assertEquals(2, response.max().size());
+        assertEquals(1, response.min().size());
+        assertEquals(1, response.max().size());
 
         Assertions.assertThat(response.min().get(0).interval()).isPositive();
         Assertions.assertThat(response.max().get(0).interval()).isPositive();
         Assertions.assertThat(response.min().get(0).interval()).isLessThan(response.max().get(0).interval());
+
+        /* Testes com dados fixos com base nos dados fornecido na avaliação */
+        assertEquals("Matthew Vaughn", response.max().get(0).producer());
+        assertEquals(13, response.max().get(0).interval());
+        assertEquals(2002, response.max().get(0).previousWin());
+        assertEquals(2015, response.max().get(0).followingWin());
+
+        assertEquals("Joel Silver", response.min().get(0).producer());
+        assertEquals(1, response.min().get(0).interval());
+        assertEquals(1990, response.min().get(0).previousWin());
+        assertEquals(1991, response.min().get(0).followingWin());
     }
 
 }
